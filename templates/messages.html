@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Web Clone</title>
+<style>
+/* styles.css */
+body, html {
+  height: 94%;
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #EDEDED;
+}
+
+#app {
+  display: flex;
+  height: 100%;
+  margin-top: 55px;
+}
+
+/* Sidebar styles */
+#sidebar {
+  width: 35%;
+  background-color: #FFFFFF;
+  border-right: 1px solid #DDD;
+  overflow-y: auto;
+}
+
+#sidebar header,
+#chat-area header {
+  padding: 10px;
+  background-color: #00BFA5;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+#sidebar header img,
+#chat-area header img {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#sidebar #search {
+  padding: 10px;
+  background-color: #F6F6F6;
+}
+
+#sidebar #search input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+}
+
+.contact {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #F2F2F2;
+}
+
+.contact img {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.contact-info h4,
+.contact-info p {
+  margin: 0;
+}
+
+.contact-time {
+  margin-left: auto;
+  opacity: 0.6;
+}
+
+/* Chat area styles */
+#chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #DCF8C6;
+  border-radius: 7px;
+  width: fit-content;
+  max-width: 70%;
+}
+
+#chat-area footer {
+  padding: 10px;
+  background-color: #F0F0F0;
+  display: flex;
+}
+
+#chat-area footer input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+#chat-area footer button {
+  padding: 8px 15px;
+  background-color: #00BFA5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CCCCCC;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B0B0B0;
+}
+
+</style>
+
+
+<div id="app">
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <header>
+      <img src="profile.jpg" alt="Profile Image">
+      <div id="status"></div>
+      <div id="new-chat"></div>
+      <div id="menu"></div>
+    </header>
+    <div id="search">
+      <input type="text" placeholder="Search or start new chat">
+    </div>
+    <div id="contact-list">
+      <!-- Repeat for each contact -->
+      <div class="contact">
+        <img src="contact.jpg" alt="Contact Image">
+        <div class="contact-info">
+          <h4>Contact Name</h4>
+          <p>Last message...</p>
+        </div>
+        <div class="contact-time">
+          <span>time</span>
+        </div>
+      </div>
+      <!-- ... -->
+    </div>
+  </div>
+
+  <!-- Chat area -->
+  <div id="chat-area">
+    <header>
+      <img src="contact.jpg" alt="Contact Image">
+      <div class="contact-info">
+        <h4>Contact Name</h4>
+        <p>Last seen...</p>
+      </div>
+      <div id="chat-menu"></div>
+    </header>
+    <div id="messages">
+      <!-- Repeat for each message -->
+      <div class="message">
+        <p>Message content...</p>
+      </div>
+      <!-- ... -->
+    </div>
+    <footer>
+      <input type="text" placeholder="Type a message">
+      <button>Send</button>
+    </footer>
+  </div>
+
+</div>
+
+</div>
+{% endblock %}

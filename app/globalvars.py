@@ -1,0 +1,4 @@
+def globalvars():
+    return  {
+        'status':""
+        }
