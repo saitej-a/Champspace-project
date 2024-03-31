@@ -1,198 +1,125 @@
-{% extends 'base.html' %}
-{% block content %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WhatsApp Web Clone</title>
 <style>
-/* styles.css */
-body, html {
-  height: 94%;
-  margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #EDEDED;
+
+body {
+  /* background-color: #74EBD5;
+  background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%); */
+  background-color: #7e3af2;
+  min-height: 100vh;
 }
 
-#app {
-  display: flex;
-  height: 100%;
-  margin-top: 55px;
-}
-
-/* Sidebar styles */
-#sidebar {
-  width: 35%;
-  background-color: #FFFFFF;
-  border-right: 1px solid #DDD;
-  overflow-y: auto;
-}
-
-#sidebar header,
-#chat-area header {
-  padding: 10px;
-  background-color: #00BFA5;
-  color: white;
-  display: flex;
-  align-items: center;
-}
-
-#sidebar header img,
-#chat-area header img {
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-#sidebar #search {
-  padding: 10px;
-  background-color: #F6F6F6;
-}
-
-#sidebar #search input {
-  width: 100%;
-  padding: 8px;
-  border: none;
-  border-radius: 20px;
-}
-
-.contact {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #F2F2F2;
-}
-
-.contact img {
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.contact-info h4,
-.contact-info p {
-  margin: 0;
-}
-
-.contact-time {
-  margin-left: auto;
-  opacity: 0.6;
-}
-
-/* Chat area styles */
-#chat-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#messages {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-}
-
-.message {
-  margin-bottom: 10px;
-  padding: 8px;
-  background-color: #DCF8C6;
-  border-radius: 7px;
-  width: fit-content;
-  max-width: 70%;
-}
-
-#chat-area footer {
-  padding: 10px;
-  background-color: #F0F0F0;
-  display: flex;
-}
-
-#chat-area footer input {
-  flex: 1;
-  padding: 8px;
-  border: none;
-  border-radius: 20px;
-  margin-right: 10px;
-}
-
-#chat-area footer button {
-  padding: 8px 15px;
-  background-color: #00BFA5;
-  color: white;
-  border: none;
-  border-radius: 20px;
-}
-
-/* Scrollbar styles */
 ::-webkit-scrollbar {
   width: 5px;
 }
 
+::-webkit-scrollbar-track {
+  width: 5px;
+  background: #f5f5f5;
+}
+
 ::-webkit-scrollbar-thumb {
-  background: #CCCCCC;
-  border-radius: 5px;
+  width: 1em;
+  background-color: #ddd;
+  outline: 1px solid slategrey;
+  border-radius: 1rem;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #B0B0B0;
+.text-small {
+  font-size: 0.9rem;
 }
 
+.messages-box,
+.chat-box {
+  height: 510px;
+  overflow-y: scroll;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+input::placeholder {
+  font-size: 0.9rem;
+  color: #999;
+}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+<title>messages</title>
+</head>
+<body>
 
-
-<div id="app">
-
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <header>
-      <img src="profile.jpg" alt="Profile Image">
-      <div id="status"></div>
-      <div id="new-chat"></div>
-      <div id="menu"></div>
-    </header>
-    <div id="search">
-      <input type="text" placeholder="Search or start new chat">
-    </div>
-    <div id="contact-list">
-      <!-- Repeat for each contact -->
-      <div class="contact">
-        <img src="contact.jpg" alt="Contact Image">
-        <div class="contact-info">
-          <h4>Contact Name</h4>
-          <p>Last message...</p>
-        </div>
-        <div class="contact-time">
-          <span>time</span>
+  <div class="container py-3 px-2">
+  
+   
+  
+    <div class="row rounded-lg overflow-hidden shadow">
+      <!-- Users box-->
+      <div class="col-3 px-0">
+        <div class="bg-white">
+  
+          <div class="bg-gray px-4 py-2 bg-light">
+            
+            <a href="/"><svg style="height: 40px; width: 40px;" aria-hidden="true"><path d="M26.025 14.496l-14.286-.001 6.366-6.366L15.979 6 5.975 16.003 15.971 26l2.129-2.129-6.367-6.366h14.29z"/></svg>
+            </a><p class="h6 mb-0 py-1">Home</p>
+          </div>
+  
+          <div class="messages-box">
+            <div class="list-group rounded-0">
+              {% for person in chat_people %}
+              
+                        
+                        <a class="list-group-item list-group-item-action active text-white rounded-0" href="{% url 'get_messages' person.id %}">
+                        
+                <!-- <div style="text-align: center;" class="media"> -->
+                  <div class="media-body ml-4" style="text-align: center;">
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                      <h6  class="mb-0">
+                        {% if person.sender == request.user %}
+                        {{ person.receiver }}
+                        {% else %}
+                        {{ person.sender }}
+                        {% endif %}
+                      </h6>
+                    </div>
+                    <p class="font-italic mb-0 text-small">{{ person.message|slice:"0:10" }}...</p>
+                  </div>
+                <!-- </div> -->
+              </a><hr style="margin: 0; background-color: black; height: 1px;">
+              {% endfor %}
+              
+  
+            </div>
+          </div>
         </div>
       </div>
-      <!-- ... -->
+      <!-- Chat Box-->
+      <div class="col-9 px-0">
+        <div class="px-4 py-5 chat-box bg-white">
+          
+          
+  
+        </div>
+  
+        <!-- Typing area -->
+        <form action="#" class="bg-light">
+          <div class="input-group">
+            <input type="text" placeholder="Type a message" aria-describedby="button-addon2" disabled class="form-control rounded-0 border-0 py-4 bg-light" >
+            <div class="input-group-append">
+              <button id="button-addon2" type="submit" class="btn btn-outline-primary" disabled>send</button>
+            </div>
+          </div>
+        </form>
+  
+      </div>
     </div>
   </div>
+</body>
+</html>
 
-  <!-- Chat area -->
-  <div id="chat-area">
-    <header>
-      <img src="contact.jpg" alt="Contact Image">
-      <div class="contact-info">
-        <h4>Contact Name</h4>
-        <p>Last seen...</p>
-      </div>
-      <div id="chat-menu"></div>
-    </header>
-    <div id="messages">
-      <!-- Repeat for each message -->
-      <div class="message">
-        <p>Message content...</p>
-      </div>
-      <!-- ... -->
-    </div>
-    <footer>
-      <input type="text" placeholder="Type a message">
-      <button>Send</button>
-    </footer>
-  </div>
 
-</div>
-
-</div>
-{% endblock %}

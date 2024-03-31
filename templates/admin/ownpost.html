@@ -1,60 +1,26 @@
-
+{% block content %}
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
     {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Windmill Dashboard</title>
+    <title>brand</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{% static 'admin/assets/css/tailwind.output.css' %}" />
+    <link rel="stylesheet" href="{% static './admin/assets/css/tailwind.output.css' %}" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
     ></script>
-    <script src="{% static 'admin/assets/js/init-alpine.js' %}"></script>
+    <script src="{% static './admin/assets/js/init-alpine.js' %}"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
     />
-    <!-- <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-      defer
-    ></script> -->
-    <!-- <script src="{% static './admin/assets/js/charts-lines.js' %}" defer></script> -->
-    <!-- <script src="{% static './admin/assets/js/charts-pie.js' %}" defer></script> -->
-    <style>
-      /* CSS */
-.hidden12 { display: none; }
-.popup {
-  background-color: #8c44ff; /* Theme accent color */
-  color: white;
-  padding: 20px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-.confirmDelete,.cancelDelete {
-  background-color: white;
-  color: #7e3af2; /* Theme accent color */
-  border: 1px solid #7e3af2; /* Theme accent color */
-  padding: 10px 20px;
-  margin: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.confirmDelete:hover, .cancelDelete:hover {
-  background-color: #7e3af2; /* Theme accent color */
-  color: white;
-}
-
-    </style>
+    
   </head>
   <body>
     <div
@@ -68,7 +34,7 @@
         <div class="py-4 text-gray-500 dark:text-gray-400">
           <a
             class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-            href="{% url 'dashboard' %}"
+            href="/"
           >
             Brand
           </a>
@@ -77,7 +43,7 @@
               
               <a
                 class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                href="{% url 'dashboard' %}"
+                href="/"
               >
                 <svg
                   class="w-5 h-5"
@@ -93,16 +59,12 @@
                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                   ></path>
                 </svg>
-                <span class="ml-4">Dashboard</span>
+                <span class="ml-4">Home</span>
               </a>
             </li>
           </ul>
           <ul>
-            <li class="relative px-6 py-3">
-                <span
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
+            <!-- <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="{% url 'userpage' %}"
@@ -121,13 +83,17 @@
                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
                   ></path>
                 </svg>
-                <span class="ml-4">Users</span>
+                <span class="ml-4">Internships</span>
               </a>
-            </li>
+            </li>-->
             <li class="relative px-6 py-3">
+                <span
+                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="{% url 'posts' %}"
+                href="{% url 'ownposts' %}"
               >
                 <svg
                   class="w-5 h-5"
@@ -143,13 +109,13 @@
                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
                   ></path>
                 </svg>
-                <span class="ml-4">Posts</span>
+                <span class="ml-4">Your Posts</span>
               </a>
             </li>
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="charts.html"
+                href="{% url 'messages' %}"
               >
                 <svg
                   class="w-5 h-5"
@@ -169,14 +135,14 @@
                 <span class="ml-4">Messages</span>
               </a>
             </li>
-            </ul>
+            
           <div class="px-6 my-6">
-            <button
+            <a role="button" href="{% url 'newpost' %}"
               class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
             >
-              Create account
+              Create A Post
               <span class="ml-2" aria-hidden="true">+</span>
-            </button>
+          </a>
           </div>
         </div>
       </aside>
@@ -207,19 +173,16 @@
         <div class="py-4 text-gray-500 dark:text-gray-400">
           <a
             class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-            href="#"
+            href="/"
           >
             Brand
           </a>
           <ul class="mt-6">
             <li class="relative px-6 py-3">
-              <span
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
+              
               <a
                 class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                href="index.html"
+                href="/"
               >
                 <svg
                   class="w-5 h-5"
@@ -235,12 +198,12 @@
                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                   ></path>
                 </svg>
-                <span class="ml-4">Dashboard</span>
+                <span class="ml-4">Home</span>
               </a>
             </li>
           </ul>
           <ul>
-            <li class="relative px-6 py-3">
+            <!-- <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="{% url 'userpage' %}"
@@ -259,13 +222,17 @@
                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
                   ></path>
                 </svg>
-                <span class="ml-4">Users</span>
+                <span class="ml-4">Internships</span>
               </a>
-            </li>
+            </li> -->
             <li class="relative px-6 py-3">
+                <span
+                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="{% url 'posts' %}"
+                href="{% url 'ownposts' %}"
               >
                 <svg
                   class="w-5 h-5"
@@ -281,13 +248,13 @@
                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
                   ></path>
                 </svg>
-                <span class="ml-4">Posts</span>
+                <span class="ml-4">Your Posts</span>
               </a>
-            </li>
+            </li> 
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="charts.html"
+                href="{% url 'messages' %}"
               >
                 <svg
                   class="w-5 h-5"
@@ -308,13 +275,15 @@
               </a>
             </li>
           </ul>
+          
           <div class="px-6 my-6">
-            <button
+            <a role="button"
               class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-            >
-              Create account
+            href="{% url 'newpost' %}"
+              >
+              Create a Post
               <span class="ml-2" aria-hidden="true">+</span>
-            </button>
+          </a>
           </div>
         </div>
       </aside>
@@ -405,8 +374,7 @@
                   </template>
                 </button>
               </li>
-             
-              <!-- Profile menu -->
+              
               <li class="relative">
                 <button
                   class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
@@ -435,7 +403,7 @@
                     <li class="flex">
                       <a
                         class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="#"
+                        href="{% url 'viewProfile' request.user.id %}"
                       >
                         <svg
                           class="w-4 h-4 mr-3"
@@ -483,148 +451,90 @@
             </ul>
           </div>
         </header>
-        <main class="h-full pb-16 overflow-y-auto">
-            <div class="container grid px-6 mx-auto">
-                <h2
-                class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+        <main class="h-full overflow-y-auto">
+          <div class="container px-6 mx-auto grid">
+            <h2
+              class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+            >
+              Own Posts
+            </h2>
+            <!-- CTA -->
+            
+              
+            <!-- Cards -->
+            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+              <!-- Card -->
+              {% for post in posts %}
+              <div
+                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
-                Table with actions
-              </h2>
-              <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                <div class="w-full overflow-x-auto">
-                  <table class="w-full whitespace-no-wrap">
-                    <thead>
-                      <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                      >
-                        <th class="px-4 py-3">User</th>
-                        <th class="px-4 py-3">Posts</th>
-                        <th class="px-4 py-3">Messsages</th>
-                        <th class="px-4 py-3">Date joined</th>
-                        <th class="px-4 py-3">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody
-                      class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                     {% for user in users %}
-                      <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                          <div class="flex items-center text-sm">
-                            <!-- Avatar with inset shadow -->
-                            <div
-                              class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                            >
-                              <img
-                                class="object-cover w-full h-full rounded-full"
-                                src="https://media.istockphoto.com/id/1393750072/vector/flat-white-icon-man-for-web-design-silhouette-flat-illustration-vector-illustration-stock.jpg?s=612x612&w=0&k=20&c=s9hO4SpyvrDIfELozPpiB_WtzQV9KhoMUP9R9gVohoU="
-                                alt=""
-                                loading="lazy"
-                              />
-                              <div
-                                class="absolute inset-0 rounded-full shadow-inner"
-                                aria-hidden="true"
-                              ></div>
-                            </div>
-                            <div>
-                              <p class="font-semibold">{{ user }}</p>
-                              <p class="text-xs text-gray-600 dark:text-gray-400">
-                                {{ user.role }}
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          {{ user.posts }}
-                        </td>
-                        <td class="px-4 py-3 text-xs">
-                          <span
-                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                          >
-                            {{ user.messagescount }}
-                          </span>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          {{ user.date_joined }}
-                        </td>
-                        <td class="px-4 py-3">
-                          <div class="flex items-center space-x-4 text-sm">
-                            <a role="button" href="{% url 'updateuser' user.id %}"
-                              class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                              aria-label="Edit"
-                            >
-                              <svg
-                                class="w-5 h-5"
-                                aria-hidden="true"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-                                ></path>
-                              </svg>
-                            </a>
-                            <!-- HTML -->
-                            
-                            
-                            <button role="button" id="deleteBtn" onclick="document.getElementById('popup{{user.id}}').classList.remove('hidden12');"
-                              class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                              aria-label="Delete"
-                            >
-                              <svg
-                                class="w-5 h-5"
-                                aria-hidden="true"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                  clip-rule="evenodd"
-                                ></path>
-                              </svg>
-                            </button>
-                            <!-- HTML -->
-                            
-                            <div id="popup{{user.id}}" class="hidden12 popup">
-                              <p>Are you sure you want to delete?</p>
-                              <br>
-                              <a role="button" href="{% url 'deleteuser' user.id %}" class="confirmDelete" id="confirmDelete{{user.id}}">Yes, Delete</a>
-                              <button id="cancelDelete{{user.id}}" class="cancelDelete" onclick="document.getElementById('popup{{user.id}}').classList.add('hidden12');">Cancel</button>
-                            </div>
+                <div
+                  class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-gray-500" 
+                >
+                <?xml version="1.0" encoding="utf-8"?>
 
-                          </div>
-                        </td>
-                      </tr>
-  {% endfor %}
-                      
-                    </tbody>
-                  </table>
+                
+                <svg width="30px" height="30px" viewBox="0 -43.5 1111 1111" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M694.857143 153.6v263.314286l43.885714-43.885715h-358.4l43.885714 43.885715v-263.314286h270.628572z m87.771428 219.428571v-87.771428h131.657143V777.508571h87.771429V285.257143c0-48.274286-39.497143-87.771429-87.771429-87.771429h-131.657143v-43.885714c0-48.274286-39.497143-87.771429-87.771428-87.771429h-270.628572c-48.274286 0-87.771429 39.497143-87.771428 87.771429v43.885714h-138.971429c-48.274286 0-87.771429 39.497143-87.771428 87.771429v177.005714h87.771428V285.257143h138.971429v87.771428h-138.971429v87.771429h716.8v-87.771429h-131.657143z m-585.142857 497.371429v-318.902857h-87.771428V870.4c0 48.274286 39.497143 87.771429 87.771428 87.771429h716.8c48.274286 0 87.771429-39.497143 87.771429-87.771429h-87.771429-716.8z" fill="#0C92F2" /><path d="M424.228571 197.485714h270.628572v87.771429h-270.628572z" fill="#0C92F2" /><path d="M292.571429 555.885714h526.628571v219.428572h-526.628571z" fill="#A8C8E6" /><path d="M292.571429 555.885714l263.314285 219.428572h-263.314285z" fill="#61B6F2" /><path d="M555.885714 555.885714h263.314286v219.428572z" fill="#FC830A" /></svg>
                 </div>
                 
-                     
+                <div>
+                  <p
+                    class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200"
+                  >
+                    {{ post.title }}
+                  </p>
+                  <p
+                  class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+                >
+                Description : 
+                  {{ post.description }}
+                </p>
+                <p
+                class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+              >
+              Skills Required : 
+                {{ post.skills }}
+              </p>
+              <p
+                class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+              >
+              Amount or Stipend : 
+                {{ post.investment_needed }}
+              </p>
+              <p
+                class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+              >
+              For : 
+                {{ post.duration }} months
+              </p>
+                  <p
+                    class="text-md font-medium text-gray-500 dark:text-gray-400"
+                  >
+                    {{ post.createdTime|date:"r"|slice:"0:22" }}, by 
+                        You
+                  </p>
+                  <div class="my-6">
+                    <a style="width: 80px;" role="button" href="{% url 'deletepost' post.id %}"
+                      class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                    >
+                      Delete
+                      
+                      
+                  </a>
+                  </div>
                 </div>
               </div>
-            
+              {% endfor %}
+             
+          </div>
+          </div>
+          
+        </main>
         
-          </main>
       </div>
-    </div>
-    <script>
-      // JavaScript
-// document.getElementById('deleteBtn').addEventListener('click', function() {
-//   document.getElementById('popup').classList.remove('hidden12');
-// });
-
-document.getElementById('confirmDelete').addEventListener('click', function() {
-  // Add logic to handle the deletion
-  document.getElementById('popup').classList.add('hidden12');
-});
-
-// document.getElementById('cancelDelete').addEventListener('click', function() {
-//   document.getElementById('popup').classList.add('hidden12');
-// });
-
-    </script>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
   </body>
 </html>
-
+{% endblock %}

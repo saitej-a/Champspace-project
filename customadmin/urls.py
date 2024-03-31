@@ -6,5 +6,7 @@ urlpatterns=[
     path('dashboard/',dashboard,name="dashboard"),
     path('users/',useradmin,name='userpage'),
     path('users/<str:pk>/',updated,name='updateuser'),
-    path('users/delete/<str:pk>/',deleteUser,name="deleteuser")
+    path('users/delete/<str:pk>/',deleteUser,name="deleteuser"),
+    path('posts/',posts,name='posts'),
+    path('posts/<str:pk>/',delpost,name='delpost')
 ]

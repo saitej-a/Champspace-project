@@ -1,4 +1,5 @@
 def globalvars():
     return  {
-        'status':""
+        'status':"",
+        'value':''
         }

@@ -28,10 +28,11 @@ def admin_login(request):
 def dashboard(request):
     if request.user.is_authenticated and request.user.is_superuser:
         users=CustomUser.objects.annotate(post_count=Count('posting'),messages_count=Count('sender')).order_by('-date_joined')
+        orderedusers=CustomUser.objects.all()
         messages=Message.objects.all()
         posts=Postings.objects.all()
     
-        return render(request,"admin/index2.html",{'users':users,'messages':messages,'posts':posts})
+        return render(request,"admin/index2.html",{'users':users,'messages':messages,'posts':posts,'ordered':orderedusers})
     else:
         return redirect('admin_login')
 @login_required
@@ -53,12 +54,14 @@ def updated(request,pk):
             city=request.POST['city']
             state=request.POST['state']
             zipcode=request.POST['zipcode']
+            skills=request.POST['skills']
             admin=request.POST.get('staff')
             user=CustomUser.objects.get(id=pk)
             user.username=username
             user.is_superuser= True if admin=='on' else False 
             user.first_name=fname
             user.last_name=lname
+            user.skills=skills
             user.city=city
             user.state=state
             user.zip_code=zipcode
@@ -71,6 +74,23 @@ def updated(request,pk):
         return redirect('admin_login')
     
 def deleteUser(request,pk):
-    user=CustomUser.objects.get(id=pk)
-    user.delete()
-    return redirect('userpage')  
+    if request.user.is_authenticated and request.user.is_superuser:
+        user=CustomUser.objects.get(id=pk)
+        user.delete()
+        return redirect('userpage')  
+    else:
+        return redirect('admin_login')
+def posts(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        postings=Postings.objects.all().order_by('-createdTime')
+        context={'postings':postings}
+        return render(request,'admin/posts.html',context)
+    else:
+        return redirect('admin_login')
+def delpost(request,pk):
+    if request.user.is_authenticated and request.user.is_superuser:
+        post=Postings.objects.get(id=pk)
+        post.delete()
+        return redirect('posts')
+    else:
+        return redirect('admin_login')
