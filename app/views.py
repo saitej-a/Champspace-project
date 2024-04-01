@@ -209,3 +209,18 @@ def viewProfile(request,pk):
     posts = Postings.objects.filter(creator=profile)
     profile_skills=profile.skills.split(',')
     return render(request,'userprofile.html',{'profile':profile,'posts':posts,'skills':profile_skills})
+def editProfile(request):
+    if request.method== "POST":
+        print(','.join(map(str,request.POST['websites'])))
+        user=CustomUser.objects.get(id=request.user.id)
+        user.city=request.POST['city']
+        user.last_name=request.POST['lname']
+        user.websitelinks=','.join(request.POST['websites'])
+    skills=request.user.skills
+    skills_range=request.user.skills_range.split(',')
+    skills=skills.split(',')
+    skills=list(zip(skills,skills_range))
+    links=request.user.websitelinks.split(',')
+    
+    
+    return render(request,'edituserprofile.html',{'skills':skills,'ownweb':links[0],'second':links[1],'third':links[2],'forth':links[3],'fifth':links[4]})

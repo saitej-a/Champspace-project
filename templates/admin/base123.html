@@ -221,7 +221,7 @@
                   stroke="currentColor"
                 >
                   <path
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                   
                   ></path>
                 </svg>
                 <span class="ml-4">Internships</span>
@@ -419,7 +419,30 @@
                         <span>Profile</span>
                       </a>
                     </li>
-                    
+                    {% if request.user.is_superuser %}
+                    <li class="flex">
+                      <a
+                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        href="{% url 'admin_login' %}"
+                      >
+                        <svg
+                          class="w-4 h-4 mr-3"
+                          aria-hidden="true"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                          ></path>
+                        </svg>
+                        <span>Admin</span>
+                      </a>
+                    </li>
+                    {% endif %}
                     <li class="flex">
                       <a
                         class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
@@ -508,9 +531,15 @@
                   <p
                     class="text-md font-medium text-gray-500 dark:text-gray-400"
                   >
-                    {{ post.createdTime|date:"r"|slice:"0:22" }}, by <a style="text-decoration-line: underline;" href="">{{post.creator}}</a>
+                    {{ post.createdTime|date:"r"|slice:"0:22" }}, by <a style="text-decoration-line: underline;" href="">
+                      {% if post.creator == request.user %}
+                      You
+                      {% else %}
+                      {{post.creator}}
+  {% endif %}                  </a>
                   </p>
                   <div class="my-6">
+                    {% if post.creator != request.user %}
                      <a style="width: 100px;" role="button" 
                        href="{% url 'sendrequest' post.id %}"
 
@@ -525,6 +554,14 @@ Apply
                       <!-- <span class="ml-2" aria-hidden="true">^</span> -->
                       <svg  width="16" height="16" fill="currentColor" class="bi bi-send-plus ml-2" viewBox="0 0 16 16"> <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/> <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/> </svg>
                   </a>
+                  {% else %}
+                  <button style="width: 140px;" disabled 
+                       
+
+                      class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-purple"
+                    >Can't Apply<svg  width="16" height="16" fill="currentColor" class="bi bi-send-plus ml-2" viewBox="0 0 16 16"> <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/> <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/> </svg>
+                </button>
+                  {% endif %}
                   </div>
                 </div>
               </div>
