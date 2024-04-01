@@ -46,7 +46,7 @@ body{
 									<p class="text-secondary mb-1">{{ request.user.role }}</p>
 									<p class="text-secondary  mb-1">{{ request.user.city }}, {{ request.user.state }}, {{ request.user.zip_code }}</p>
                                     <p class="text-muted font-size-sm"> Joined on {{ request.user.date_joined }}</p>
-									<a role="button" href="/" class="btn btn-outline-primary">Back</a>
+									<a role="button" href="{% url 'viewProfile' request.user.id %}" class="btn btn-outline-primary">Back</a>
                                     
                                 </div>
 							</div>
@@ -105,10 +105,18 @@ body{
 							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Experince</h6>
+									<h6 class="mb-0">Experience</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									<input type="text" class="form-control" value="{{ request.user.experience }}" name="experience">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Role</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" class="form-control" value="{{ request.user.role }}" name="role">
 								</div>
 							</div>
 							<!-- <div class="row mb-3">
@@ -145,7 +153,15 @@ body{
 							
 							<h2 class="d-flex align-items-center mb-8 ">Skills</h2>
 					            {% for i,j in  skills %}
-							<div class="row mb-3">
+								<div class="row mb-3">
+									<div class="col-sm-3">
+										<input type="text" name="skillslist" class="form-control" value="{{i}}">
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<input type="range" class="form-control" name="skillsrange" value="{{j}}" >
+									</div>
+								</div>
+							<!-- <div class="row mb-3">
 								
                                     
 									
@@ -154,12 +170,12 @@ body{
                                 
                                 
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">{{ i }}</h6>
+                                        <h6 class="mb-0" name="skillslist">{{ i }}</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="range" class="form-control" value="{{ j }}" name="skillsrange" >
-                                    </div>
-                                </div>{% endfor %}
+                                    </div></div> -->
+                                {% endfor %}
                                 
 
 									<!-- <div class="progress mb-3" style="height: 5px">
@@ -191,7 +207,7 @@ body{
 	<script>
 		function add(){
             
-            var child='<div class="row mb-3"><div class="col-sm-3"><input type="text" name="skillsadded" class="form-control" ></div><div class="col-sm-9 text-secondary"><input type="range" class="form-control" name="skillsrangeadded" value="0" ></div></div>';
+            var child='<div class="row mb-3"><div class="col-sm-3"><input type="text" name="skillslist" class="form-control" ></div><div class="col-sm-9 text-secondary"><input type="range" class="form-control" name="skillsrange" value="0" ></div></div>';
             $('#cont').append(child);
 
         }
