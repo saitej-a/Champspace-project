@@ -30,7 +30,7 @@
       /* CSS */
 .hidden12 { display: none; }
 .popup {
-  background-color: #8c44ff; /* Theme accent color */
+  background-color: #8c44ff;
   color: white;
   padding: 20px;
   position: fixed;
@@ -42,15 +42,15 @@
 }
 .confirmDelete,.cancelDelete {
   background-color: white;
-  color: #7e3af2; /* Theme accent color */
-  border: 1px solid #7e3af2; /* Theme accent color */
+  color: #7e3af2;
+  border: 1px solid #7e3af2; 
   padding: 10px 20px;
   margin: 10px;
   border-radius: 5px;
   cursor: pointer;
 }
 .confirmDelete:hover, .cancelDelete:hover {
-  background-color: #7e3af2; /* Theme accent color */
+  background-color: #7e3af2; 
   color: white;
 }
 
@@ -150,7 +150,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="charts.html"
+                href="{% url 'messagedash' %}"
               >
                 <svg
                   class="w-5 h-5"
@@ -266,7 +266,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="cards.html"
+                href="{% url 'messagedash' %}"
               >
                 <svg
                   class="w-5 h-5"
@@ -315,7 +315,7 @@
             >
               Create account
               <span class="ml-2" aria-hidden="true">+</span>
-            </button>
+          </a>
           </div>
         </div>
       </aside>
@@ -511,7 +511,7 @@
                       <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                           <div class="flex items-center text-sm">
-                            <!-- Avatar with inset shadow -->
+                            
                             
                             <div>
                               <p class="font-semibold">{{ posts.title }}</p>
@@ -551,7 +551,7 @@
                                 ></path>
                               </svg>
                             </a>
-                            <!-- HTML -->
+                           
                             
                             
                             <button role="button" id="deleteBtn" onclick="document.getElementById('popup{{posts.id}}').classList.remove('hidden12');"
@@ -571,7 +571,7 @@
                                 ></path>
                               </svg>
                             </button>
-                            <!-- HTML -->
+                            
                             
                             <div id="popup{{posts.id}}" class="hidden12 popup">
                               <p>Are you sure you want to delete?</p>

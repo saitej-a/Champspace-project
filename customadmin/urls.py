@@ -8,5 +8,8 @@ urlpatterns=[
     path('users/<str:pk>/',updated,name='updateuser'),
     path('users/delete/<str:pk>/',deleteUser,name="deleteuser"),
     path('posts/',posts,name='posts'),
-    path('posts/<str:pk>/',delpost,name='delpost')
+    path('posts/<str:pk>/',delpost,name='delpost'),
+    path('messages/',messagesdashboard,name='messagedash'),
+    path('delmessage/<str:pk>/',delmessage,name="delmessage"),
+    path('createuser/',createuser,name= 'createuser'),
 ]

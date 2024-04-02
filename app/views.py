@@ -5,6 +5,7 @@ from .models import CustomUser,Postings,Message,Chatbox,Appliedfor
 from django.contrib.auth import authenticate,login,logout
 from .globalvars import globalvars
 from django.http import JsonResponse,HttpResponse
+from django.contrib import messages as msg
 import json 
 globalvar=globalvars()
 def home(request):

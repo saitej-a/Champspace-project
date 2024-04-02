@@ -10,6 +10,7 @@ urlpatterns=[
     path('messages/<str:pk>/',get_messages,name= "get_messages"),
     path('getmessage/<str:pk>/',get_message,name= "get_message"),
     path('send/',sendMessage,name ='send'),
+    path('sendreq/<str:pk>/',sendrequest,name='sendmsgrequest'),
     path('sendRequest/<str:pk>/',sendrequestPost,name='sendrequest'),
     path('getpostmessage/<str:pk>/',getpost_message,name='getpost_message'),
     path('ownposts/',ownposts,name='ownposts'),

@@ -48,7 +48,7 @@ body{
                                     {% if profile == request.user %}
 									<button role="button" href="{% url 'sendrequest' profile.id %}"  title="Can't Message Yourself" disabled class="btn btn-primary">Message</button>
                                     {% else %}
-                                    <a role="button" href="{% url 'sendrequest' profile.id %}" class="btn btn-primary">Message</a>
+                                    <a role="button" href="{% url 'sendmsgrequest' profile.id %}" class="btn btn-primary">Message</a>
                                     {% endif %}
                                 </div>
 							</div>
@@ -140,7 +140,7 @@ body{
                                     {% for i,j in  skills %}
 									<p>{{ i }}</p>
 									<div class="progress mb-3" style="height: 5px">
-										<div class="progress-bar bg-primary" role="progressbar" style="width: {{j}}%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+										<div class="progress-bar bg-primary" role="progressbar" style="width: {{j}}%" aria-valuenow="{{j}}" aria-valuemin="0" aria-valuemax="100"></div>
 									</div>
                                     {% endfor %}
 									

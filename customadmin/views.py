@@ -72,6 +72,32 @@ def updated(request,pk):
             return render(request,'admin/pages/create-account.html',{'user':user})
     else:
         return redirect('admin_login')
+
+@login_required
+def createuser(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        if request.method=="POST":
+            username = request.POST['name']
+            
+            fname=request.POST['fname']
+            password=request.POST['password']
+            lname=request.POST['lname']
+            city=request.POST['city']
+            state=request.POST['state']
+            zipcode=request.POST['zipcode']
+            skills=request.POST['skills']
+            admin=request.POST.get('staff')
+            admin=True if admin=='on' else False 
+            user=CustomUser.objects.create(username=username,password=password,city=city,first_name=fname,last_name=lname,state=state,zip_code=zipcode,skills=skills,is_superuser=admin)
+
+            
+            user.save()
+            return redirect('admin_login') 
+        else:
+            
+            return render(request,'admin/pages/createacc.html')
+    else:
+        return redirect('admin_login')
     
 def deleteUser(request,pk):
     if request.user.is_authenticated and request.user.is_superuser:
@@ -92,5 +118,22 @@ def delpost(request,pk):
         post=Postings.objects.get(id=pk)
         post.delete()
         return redirect('posts')
+    else:
+        return redirect('admin_login')
+def messagesdashboard(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        msg=Message.objects.all().order_by('-createdTime')
+        context = {'messages':msg}
+        return render(request,'admin/adminmessages.html',context)
+
+    else:
+        return redirect('admin_login')
+    
+def delmessage(request,pk):
+    if request.user.is_authenticated and request.user.is_superuser:
+        msg=Message.objects.get(id=pk)
+        msg.delete()
+        return redirect('messagedash')
+
     else:
         return redirect('admin_login')

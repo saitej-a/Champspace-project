@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     zip_code = models.TextField()
     skills = models.CharField(max_length=256, blank=True)  # Comma separated list of skills
     skills_range= models.CharField(max_length=256, blank=True)
-    websitelinks = models.CharField(max_length=256, blank=True)
+    websitelinks = models.CharField(max_length=256, default=',,,,')
     role = models.CharField(max_length=256, default='Fresher') 
     experience=models.CharField(max_length=256, blank=True)
     # You can also specify a custom manager for your user model, if needed

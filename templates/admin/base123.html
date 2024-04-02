@@ -531,7 +531,7 @@
                   <p
                     class="text-md font-medium text-gray-500 dark:text-gray-400"
                   >
-                    {{ post.createdTime|date:"r"|slice:"0:22" }}, by <a style="text-decoration-line: underline;" href="">
+                    {{ post.createdTime|date:"r"|slice:"0:22" }}, by <a style="text-decoration-line: underline;" href="{% url 'viewProfile' post.creator.id %}">
                       {% if post.creator == request.user %}
                       You
                       {% else %}
