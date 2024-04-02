@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+     <title>PHPJabbers.com | Free Job Agency Website Template</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'jobdetails/css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'jobdetails/css/font-awesome.min.css' %}">
+     <link rel="stylesheet" href="{% static 'jobdetails/css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'jobdetails/css/owl.theme.default.min.css' %}">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'jobdetails/css/style.css' %}">
+
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+
+     <section>
+          <div class="container">
+               <div class="row">
+                    
+
+                    <div class="col-lg-9 col-md-9 col-xs-12">
+                         <!-- <form action="#" method="post" class="form"> -->
+                              <h2>{{post.title}}</h2>
+
+                              <p class="lead"><strong class="text-primary">₹ {{post.investment_needed}}</strong> <small> per month</small></p>
+
+                              <p class="lead">
+                                   <i class="fa fa-briefcase"></i> {{post.typeofpost}} &nbsp;&nbsp;
+                                   <i class="fa fa-map-marker"></i> {{post.location}} &nbsp;&nbsp;
+                                   <i class="fa fa-calendar"></i> {{post.createdTime}} &nbsp;&nbsp;
+                                   
+                              </p>
+
+                              
+                         <!-- </form> -->
+                    </div>
+               </div>
+
+               <div class="panel panel-default">
+                    <div class="panel-heading">
+                         <h4>Job Description</h4>
+                    </div>
+
+                    <div class="panel-body">
+                         <p>{{post.description}}.</p>
+
+                         <h4>Skills:</h4>
+                         {% for skill in skills %}
+                         <p>- {{ skill }}.</p>
+                         {% endfor %}
+                    </div>
+               </div>
+
+               <div class="panel panel-default">
+                    <div class="panel-heading">
+                         <h4>About {{ post.company_name }}</h4>
+                    </div>
+
+                    <div class="panel-body">
+                         <p>Looking to improve the security at your place of business? If so, we will provide you with the trained security officers and professionally licensed personnel needed for any business. From a security guard for construction site security to private event security, you can be sure to get the very best from our staff. Alternatively we provide tailor-made security guard training for your existing security staff.</p>
+
+                         <div class="row">
+                              <div class="col-lg-6">
+                                   
+                              </div>
+
+                              <div class="col-lg-6">
+                                   
+                              </div>
+                         </div>
+
+                         <div class="row">
+                              <div class="col-md-6">
+                                   <p>
+                                        <span>Company name</span>
+
+                                        <br>
+
+                                        <strong>{{ post.company_name }}</strong>
+                                   </p>
+                              </div>
+
+                              <div class="col-md-6">
+                                   <p>
+                                        <span>Contact name</span>
+
+                                        <br>
+
+                                        <strong>{{ post.creator }}</strong>
+                                   </p>
+                              </div>
+                         </div>
+
+
+                         <div class="row">
+                              <div class="col-md-6">
+                                   <p>
+                                        <span>City</span>
+
+                                        <br>
+
+                                        <strong>{{ post.location }}</strong>
+                                   </p>
+                              </div>
+
+                              <div class="col-md-6">
+                                   <p>
+                                        <span>Website</span>
+
+                                        <br>
+
+                                        <strong><a href="{{ post.website }}">{{ post.website}}</a></strong>
+                                   </p>
+                              </div>
+                         </div>
+
+                         
+                    </div>
+               </div>
+
+               <div class="clearfix">
+                {% if post.creator == request.user %}
+                <button disabled class="section-btn btn btn-primary pull-left">Can't Apply</button>
+                {% else %}
+                {% if apply %}
+                <button disabled class="section-btn btn btn-primary pull-left">Applied</button>
+                {% else %}
+
+                    <a href="{% url 'sendrequest' post.id %}" class="section-btn btn btn-primary pull-left">Apply for this job</a>
+{% endif %}
+{% endif %}
+                    <ul class="social-icon pull-right">
+                        {% if post.creator == request.user %}
+                         
+                         <li ><a class="fa fa-envelope-o" title="You Can't message Yourself"></a>Message</li>
+{% else %}
+<li ><a href="{% url 'sendmsgrequest' post.creator.id %}" class="fa fa-envelope-o"></a>Message</li>
+{% endif %}
+                    </ul>
+               </div>
+          </div>
+     </section>
+
+
+
+     <!-- SCRIPTS -->
+     <script src="{% static 'jobdetails/js/jquery.js' %}"></script>
+     <script src="{% static 'jobdetails/js/bootstrap.min.js' %}"></script>
+     <script src="{% static 'jobdetails/js/owl.carousel.min.js' %}"></script>
+     <script src="{% static 'jobdetails/js/smoothscroll.js' %}"></script>
+     <script src="{% static 'jobdetails/js/custom.js' %}"></script>
+
+</body>
+</html>

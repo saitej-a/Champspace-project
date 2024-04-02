@@ -16,6 +16,8 @@ urlpatterns=[
     path('ownposts/',ownposts,name='ownposts'),
     path('delete/<str:pk>/',deletepost,name='deletepost'),
     path('userprofile/<str:pk>/',viewProfile,name='viewProfile'),
-    path('edituserprofile/',editProfile,name='editProfile')
+    path('edituserprofile/',editProfile,name='editProfile'),
+    path('vewpostdeatils/<str:pk>/',viewpostdetails,name='viewpostdetails'),
+    path('search/',search,name='search')
     
 ]

@@ -327,12 +327,13 @@
                     ></path>
                   </svg>
                 </div>
+                <form action="{% url 'search' %}" method="get">
                 <input
                   class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   placeholder="Search for Posts or Projects or Users"
-                  aria-label="Search"
-                />
+                  aria-label="Search" name="searchtag"
+                /></form>
               </div>
             </div>
             <ul class="flex items-center flex-shrink-0 space-x-6">
@@ -486,6 +487,7 @@
               <!-- Card -->
               
               {% for post,i in posts %}
+              
               <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
@@ -501,8 +503,9 @@
                 <div>
                   <p
                     class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  >
+                  ><a href="{% url 'viewpostdetails' post.id %}" style="text-decoration: underline;">
                     {{ post.title }}
+                  </a>
                   </p>
                   <p
                   class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
@@ -540,20 +543,25 @@
                   </p>
                   <div class="my-6">
                     {% if post.creator != request.user %}
-                     <a style="width: 100px;" role="button" 
+                     
+                    {% if i %}
+                    <button style="width: 100px;" role="button" 
+                       disabled="true"
+
+                      class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                    >Applied<svg  width="16" height="16" fill="currentColor" class="bi bi-send-plus ml-2" viewBox="0 0 16 16"> <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/> <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/> </svg>
+                  </button>
+                    
+                    {% else %}<a style="width: 100px;" role="button" 
                        href="{% url 'sendrequest' post.id %}"
 
                       class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                    >
-                    {% if i %}
-                    
-                    Applied
-                    {% else %}
-Apply
+                    >Apply<svg  width="16" height="16" fill="currentColor" class="bi bi-send-plus ml-2" viewBox="0 0 16 16"> <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/> <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/> </svg>
+                  </a>
+
 {% endif %}
                       <!-- <span class="ml-2" aria-hidden="true">^</span> -->
-                      <svg  width="16" height="16" fill="currentColor" class="bi bi-send-plus ml-2" viewBox="0 0 16 16"> <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/> <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/> </svg>
-                  </a>
+                      
                   {% else %}
                   <button style="width: 140px;" disabled 
                        
@@ -565,6 +573,8 @@ Apply
                   </div>
                 </div>
               </div>
+            
+
               
               {% endfor %}
             

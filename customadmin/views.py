@@ -88,7 +88,7 @@ def createuser(request):
             skills=request.POST['skills']
             admin=request.POST.get('staff')
             admin=True if admin=='on' else False 
-            user=CustomUser.objects.create(username=username,password=password,city=city,first_name=fname,last_name=lname,state=state,zip_code=zipcode,skills=skills,is_superuser=admin)
+            user=CustomUser.objects.create_user(username=username,password=password,city=city,first_name=fname,last_name=lname,state=state,zip_code=zipcode,skills=skills,is_superuser=admin)
 
             
             user.save()
@@ -108,7 +108,9 @@ def deleteUser(request,pk):
         return redirect('admin_login')
 def posts(request):
     if request.user.is_authenticated and request.user.is_superuser:
+        print('before')
         postings=Postings.objects.all().order_by('-createdTime')
+        print(postings)
         context={'postings':postings}
         return render(request,'admin/posts.html',context)
     else:

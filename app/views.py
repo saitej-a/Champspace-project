@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from .models import CustomUser,Postings,Message,Chatbox,Appliedfor
+from django.db.models import Q
 from django.contrib.auth import authenticate,login,logout
 from .globalvars import globalvars
 from django.http import JsonResponse,HttpResponse
@@ -29,14 +30,18 @@ def signin(request):
     if  request.method == "POST":
         username = request.POST['name']
         password = request.POST['password']
+        print(username,password)
         user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
+            print('if')
             globalvar['status']=""
             login(request,user)
                 
             return redirect('/')
         else:
             globalvar['status']=""
+            print('else')
             return render(request,'signin.html',{'error':'Username or Password is incorrect'})
     return render(request,'signin.html',{"status":globalvar['status']})
 def signup(request):
@@ -73,7 +78,11 @@ def newpost(request):
         invest=request.POST['investmentNeeded']
         deadline=request.POST['timeline']
         skills=request.POST['desiredSkills']
-        post=Postings.objects.create(title=title,description=content,duration=deadline,skills=skills,investment_needed=invest,creator=request.user)
+        posttype=request.POST['typeofpost']
+        website=request.POST['website']
+        location=request.POST['location']
+        companyname=request.POST['company_name']
+        post=Postings.objects.create(title=title,description=content,duration=deadline,skills=skills,investment_needed=invest,creator=request.user,typeofpost=posttype,location=location,company_name=companyname,website=website)
         post.save()
         return redirect('home')
         
@@ -151,8 +160,9 @@ def sendrequestPost(request,pk):
         try:
             appliedfor=appliedfor.objects.get(post=post)
             appliedfor.applicants.add(request.user)
-            appliedfor.save()
+            
             appliedfor.applied=True
+            appliedfor.save()
             print('try')
             
             return redirect('home')
@@ -243,3 +253,19 @@ def editProfile(request):
     
     
     return render(request,'edituserprofile.html',{'skills':skills,'ownweb':links[0],'second':links[1],'third':links[2],'forth':links[3],'fifth':links[4]})
+def viewpostdetails(request,pk):
+    post=Postings.objects.get(id=pk)
+    skills=post.skills.split(',')
+    apply=Appliedfor.objects.filter(post=post,applied=True)
+
+    return render(request,'admin/fullpage.html',{'post':post,'skills':skills,"apply":apply})
+def search(request):
+    if request.method=='GET':
+
+        print(request.GET['searchtag'])
+        q=request.GET['searchtag'] if request.GET['searchtag'] != None else ''
+        searchedposts=Postings.objects.filter(Q(title__icontains=q)| Q(typeofpost__icontains=q)|Q(location__icontains=q)|Q(company_name__icontains=q)|Q(skills__icontains=q))
+        searchedusers=CustomUser.objects.filter(Q(username__icontains=q)|Q(first_name__icontains=q)|Q(last_name__icontains=q)|Q(city__icontains=q)|Q(state__icontains=q)|Q(zip_code__icontains=q)|Q(skills__icontains=q))
+        
+        
+    return render(request,'admin/search.html',{'searchedposts':searchedposts,'searchedusers':searchedusers})
