@@ -12,4 +12,6 @@ urlpatterns=[
     path('messages/',messagesdashboard,name='messagedash'),
     path('delmessage/<str:pk>/',delmessage,name="delmessage"),
     path('createuser/',createuser,name= 'createuser'),
+    path('searchadmin/',searchadmin,name= "searchadmin"),
+    path('createpostadmin/',createpostadmin,name= 'createpostadmin')
 ]

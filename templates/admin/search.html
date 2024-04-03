@@ -328,12 +328,21 @@
                   </svg>
                 </div>
                 <form action="{% url 'search' %}" method="get">
+                  <div style="display: flex;"><select style="width: 100px;margin-right: 10px;"
+                class="pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                type=""
+                placeholder="Select Type"
+                aria-label="filter" name="dropdown"
+              >
+            <option value="User">User</option>
+            <option value="Post">Post</option></select>
                 <input
                   class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text"
                   placeholder="Search for Posts or Projects or Users"
                   aria-label="Search" name="searchtag"
-                /></form>
+                />
+                </div></form>
               </div>
             </div>
             <ul class="flex items-center flex-shrink-0 space-x-6">
@@ -473,15 +482,15 @@
           </div>
         </header>
         <main class="h-full overflow-y-auto" style="border: 1px solid rgb(222, 222, 222);">
-            <div class="container px-6 mx-auto grid">
+            <div class="container px-6 mx-auto grid">{% if to == 'Users' %}
               <h2
                 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
               >
                 Users
               </h2>
-{% if searchedusers %}
+ {% if searched %}
               <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2" >
-                {% for searcheduser in searchedusers %}
+                {% for search in searched %}
                 <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
@@ -497,27 +506,27 @@
                 <div>
                   <p
                     class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  ><a href="{% url 'viewProfile' searcheduser.id %}" style="text-decoration: underline;">
-                    {{ searcheduser.username }}
+                  ><a href="{% url 'viewProfile' search.id %}" style="text-decoration: underline;">
+                    {{ search.username }}
                   </a>
                   </p>
                   <p
                   class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
                 >
                 Skills : 
-                  {{ searcheduser.skills }}
+                  {{ search.skills }}
                 </p>
                 <p
                 class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
               >
               Role : 
-                {{ searcheduser.role }}
+                {{ search.role }}
               </p>
               <p
                 class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
               >
               Location : 
-                {{ searcheduser.city }}, {{ searcheduser.state }}, {{ searcheduser.zip_code }}
+                {{ search.city }}, {{ search.state }}, {{ search.zip_code }}
               </p>
              
                   
@@ -530,20 +539,19 @@
                 {% endfor %}
               </div>
               {% else %}
-              :( Nothing...
+              Nothing...
+              
               {% endif %}
-              </div>
-        </main>
-        <main class="h-full overflow-y-auto" style="border: 1px solid rgb(222, 222, 222);">
-            <div class="container px-6 mx-auto grid">
+              </div>{% else %}
+              
               <h2
                 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
               >
                 Posts
               </h2>
-{% if searchedposts %}
+{% if searched %}
               <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
-                {% for searchedpost in searchedposts %}
+                {% for search in searched %}
                 <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
@@ -559,42 +567,42 @@
                 <div>
                   <p
                     class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  ><a href="{% url 'viewpostdetails' searchedpost.id %}" style="text-decoration: underline;">
-                    {{ searchedpost.title }}
+                  ><a href="{% url 'viewpostdetails' search.id %}" style="text-decoration: underline;">
+                    {{ search.title }}
                   </a>
                   </p>
                   <p
                   class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
                 >
                 Description : 
-                  {{ searchedpost.description }}
+                  {{ search.description }}
                 </p>
                 <p
                 class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
               >
               Skills Required : 
-                {{ searchedpost.skills }}
+                {{ search.skills }}
               </p>
               <p
                 class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
               >
               Amount or Stipend : 
-                {{ searchedpost.investment_needed }}
+                {{ search.investment_needed }}
               </p>
               <p
                 class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
               >
               For : 
-                {{ searchedpost.duration }} months
+                {{ search.duration }} months
               </p>
                   <p
                     class="text-md font-medium text-gray-500 dark:text-gray-400"
                   >
-                    {{ searchedpost.createdTime|date:"r"|slice:"0:22" }}, by <a style="text-decoration-line: underline;" href="{% url 'viewProfile' searchedpost.creator.id %}">
-                      {% if searchedpost.creator == request.user %}
+                    {{ search.createdTime|date:"r"|slice:"0:22" }}, by <a style="text-decoration-line: underline;" href="{% url 'viewProfile' search.creator.id %}">
+                      {% if search.creator == request.user %}
                       You
                       {% else %}
-                      {{searchedpost.creator}}
+                      {{search.creator}}
   {% endif %}                  </a>
                   </p>
                   
@@ -607,10 +615,12 @@
                 {% endfor %}
               </div>
               {% else %}
-              :( Nothing...
+              Nothing...
               {% endif %}
               </div>
+              {% endif %}
         </main>
+        
         
        
       </div></div>

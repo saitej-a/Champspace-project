@@ -139,3 +139,34 @@ def delmessage(request,pk):
 
     else:
         return redirect('admin_login')
+    
+def searchadmin(request):
+    if request.method=='GET':
+
+        to=''
+        q=request.GET['searchtag'] if request.GET['searchtag'] != None else ''
+        if request.GET['dropdown'] == 'User':
+            to='Users'
+            searched=CustomUser.objects.filter(Q(username__icontains=q)|Q(first_name__icontains=q)|Q(last_name__icontains=q)|Q(city__icontains=q)|Q(state__icontains=q)|Q(zip_code__icontains=q)|Q(skills__icontains=q))
+        else:
+            to="Posts"
+            searched=Postings.objects.filter(Q(title__icontains=q)| Q(typeofpost__icontains=q)|Q(location__icontains=q)|Q(company_name__icontains=q)|Q(skills__icontains=q))
+        
+        
+        
+    return render(request,'admin/searchadmin.html',{'searched':searched,'to':to})
+def createpostadmin(request):
+    if request.method=='POST':
+        title=request.POST['projectTitle']
+        content=request.POST['projectDescription']
+        invest=request.POST['investmentNeeded']
+        deadline=request.POST['timeline']
+        skills=request.POST['desiredSkills']
+        posttype=request.POST['typeofpost']
+        website=request.POST['website']
+        location=request.POST['location']
+        companyname=request.POST['company_name']
+        post=Postings.objects.create(title=title,description=content,duration=deadline,skills=skills,investment_needed=invest,creator=request.user,typeofpost=posttype,location=location,company_name=companyname,website=website)
+        post.save()
+        return redirect('dashboard')
+    return render(request,"admin/adminpostcreation.html")

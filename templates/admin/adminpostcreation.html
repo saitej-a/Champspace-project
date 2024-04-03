@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project</title><style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 14px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <main class="h-full overflow-y-auto">
+        <style>
+            .container12 {
+        
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+            
+             
+            h1 {
+                text-align: center;
+                margin-bottom: 30px;
+                color: #0a0a0a;
+                font-size: large;
+            }
+            label {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 5px;
+                color: #555;
+            }
+            .inputtext{
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+            textarea {
+                resize: vertical;
+                min-height: 150px;
+            }
+            input[type="submit"] {
+                background-color: #7e3af2;
+                color: #fff;
+                padding: 14px 20px;
+                margin-top: 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 100%;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+            input[type="submit"]:hover {
+                background-color: #6a16fd;
+            } 
+        </style>
+    
+        <div class="container12" >
+            <h1>Create Project Listing</h1>
+            <form id="projectListingForm" method="post">
+                
+                {% csrf_token %}
+                <label for="projectTitle">Project Title:</label>
+                <input type="text" id="projectTitle"  class="inputtext" name="projectTitle" required>
+    
+                <label for="projectDescription">Project Description:</label>
+                <textarea id="projectDescription"  class="inputtext" name="projectDescription" required></textarea>
+                <label for="typeofpost">Post Type:</label>
+                <input type="text" id="typeofpost"  class="inputtext" name="typeofpost" required>
+                <label for="website">Web site:</label>
+                <input type="text" id="website"  class="inputtext" name="website" required>
+
+                <label for="location">Location :</label>
+                <input type="text" id="location"  class="inputtext" name="location" required>
+                <label for="company_name">Comapny :</label>
+                <input type="text" id="company_name"  class="inputtext" name="company_name" required>
+                
+                <label for="investmentNeeded">Stipend Per Month:</label>
+                <input type="text" id="investmentNeeded"  class="inputtext" name="investmentNeeded" required>
+    
+                <label for="timeline">Timeline:</label>
+                <input type="text" id="timeline"  class="inputtext" name="timeline" required>
+    
+                <label for="desiredSkills">Desired Skills:(comma separated)</label>
+                <input type="text" id="desiredSkills"  class="inputtext" name="desiredSkills" required>
+    
+                <input type="submit" value="Create Listing">
+            </form>
+        </div> 
+    
+    </main>
+</body>
+</html>
+    
+
+    
+

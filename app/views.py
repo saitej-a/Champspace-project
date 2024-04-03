@@ -262,10 +262,15 @@ def viewpostdetails(request,pk):
 def search(request):
     if request.method=='GET':
 
-        print(request.GET['searchtag'])
+        to=''
         q=request.GET['searchtag'] if request.GET['searchtag'] != None else ''
-        searchedposts=Postings.objects.filter(Q(title__icontains=q)| Q(typeofpost__icontains=q)|Q(location__icontains=q)|Q(company_name__icontains=q)|Q(skills__icontains=q))
-        searchedusers=CustomUser.objects.filter(Q(username__icontains=q)|Q(first_name__icontains=q)|Q(last_name__icontains=q)|Q(city__icontains=q)|Q(state__icontains=q)|Q(zip_code__icontains=q)|Q(skills__icontains=q))
+        if request.GET['dropdown'] == 'User':
+            to='Users'
+            searched=CustomUser.objects.filter(Q(username__icontains=q)|Q(first_name__icontains=q)|Q(last_name__icontains=q)|Q(city__icontains=q)|Q(state__icontains=q)|Q(zip_code__icontains=q)|Q(skills__icontains=q))
+        else:
+            to="Posts"
+            searched=Postings.objects.filter(Q(title__icontains=q)| Q(typeofpost__icontains=q)|Q(location__icontains=q)|Q(company_name__icontains=q)|Q(skills__icontains=q))
         
         
-    return render(request,'admin/search.html',{'searchedposts':searchedposts,'searchedusers':searchedusers})
+        
+    return render(request,'admin/search.html',{'searched':searched,'to':to})
