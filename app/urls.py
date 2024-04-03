@@ -18,6 +18,7 @@ urlpatterns=[
     path('userprofile/<str:pk>/',viewProfile,name='viewProfile'),
     path('edituserprofile/',editProfile,name='editProfile'),
     path('vewpostdeatils/<str:pk>/',viewpostdetails,name='viewpostdetails'),
-    path('search/',search,name='search')
+    path('search/',search,name='search'),
+    path('notloginsearch/',notloginsearch,name='notloginsearch')
     
 ]

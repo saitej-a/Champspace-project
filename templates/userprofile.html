@@ -44,7 +44,7 @@ body{
 									<p class="text-secondary mb-1">{{ profile.role }}</p>
 									<p class="text-secondary  mb-1">{{ profile.city }}, {{ profile.state }}, {{ profile.zip_code }}</p>
                                     <p class="text-muted font-size-sm"> Joined on {{ profile.date_joined }}</p>
-									<a role="button" href="/" class="btn btn-outline-primary">Back</a>
+									<a role="button" href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-primary">Back</a>
                                     {% if profile == request.user %}
 									<button role="button" href="{% url 'sendrequest' profile.id %}"  title="Can't Message Yourself" disabled class="btn btn-primary">Message</button>
                                     {% else %}

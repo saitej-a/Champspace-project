@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700&amp;family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,300&amp;display=swap" rel="stylesheet">
+    <link href="{% static 'assets/css/theme.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/user.min.css' %}" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static './admin/assets/css/tailwind.output.css' %}" />
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <script src="{% static './admin/assets/js/init-alpine.js' %}"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+    />
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Brand</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+
+    
+  </head>
+
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="light">
+        <div class="container"><a class="navbar-brand" href="{% url 'home' %}">
+            <!-- <img src="{% static 'assets/img/icons/Logo.png' %}" height="35" alt="logo" /> -->
+            Brand
+        </a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
+              
+              <li class="nav-item"><a class="nav-link px-3" href="{% url 'home' %}">Home</a></li>
+              
+              
+              <li class="nav-item"><a class="nav-link pl-3 me-3" href="{% url 'signup' %}">Sign Up </a></li>
+
+              <li class="nav-item"><form action="{% url 'notloginsearch' %}" method="get" style="display: flex;"><select placeholder="Search Posts" style="width: 95px;border: 1px solid #6f42c1;border-radius: 5px;height: 50px;text-align: center;margin-right: 10px;" class="nav-link px-3" name="dropdown">
+              <option value="User">User</option>
+            <option value="Post">Post</option></select>
+            <input placeholder="Search Posts" style="width: 200px;border: 1px solid #6f42c1;border-radius: 5px;height: 50px;text-align: center;margin-right: 20px;" class="nav-link px-3" name="searchtag" /></li></form></ul>
+            
+            <a role="button" href="{% url 'signin' %}" class="btn btn-outline-primary" >Sign In</a>
+            
+          </div>
+        </div>
+      </nav>
+      
+        <!--/.bg-holder-->
+        <section class="py-7" id="home">
+          <div class="bg-holder bg-size" style="background-image:url('static/assets/img/illustration/2.png');background-position:left top;background-size:contain;"></div>
+        <!--/.bg-holder-->
+        
+            <main class="h-full overflow-y-auto">
+              <div class="container px-6 mx-auto grid">
+               <h2
+        class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+      >
+        Posts
+      </h2>
+                <!-- CTA -->
+                
+                  
+                <!-- Cards -->
+                <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+                  <!-- Card -->
+                  
+                  {% for post in posts %}
+                  
+                  <div
+                    class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+                  >
+                    <div
+                      class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-gray-500" 
+                    >
+                    <?xml version="1.0" encoding="utf-8"?>
+    
+                    
+                    <svg width="30px" height="30px" viewBox="0 -43.5 1111 1111" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M694.857143 153.6v263.314286l43.885714-43.885715h-358.4l43.885714 43.885715v-263.314286h270.628572z m87.771428 219.428571v-87.771428h131.657143V777.508571h87.771429V285.257143c0-48.274286-39.497143-87.771429-87.771429-87.771429h-131.657143v-43.885714c0-48.274286-39.497143-87.771429-87.771428-87.771429h-270.628572c-48.274286 0-87.771429 39.497143-87.771428 87.771429v43.885714h-138.971429c-48.274286 0-87.771429 39.497143-87.771428 87.771429v177.005714h87.771428V285.257143h138.971429v87.771428h-138.971429v87.771429h716.8v-87.771429h-131.657143z m-585.142857 497.371429v-318.902857h-87.771428V870.4c0 48.274286 39.497143 87.771429 87.771428 87.771429h716.8c48.274286 0 87.771429-39.497143 87.771429-87.771429h-87.771429-716.8z" fill="#0C92F2" /><path d="M424.228571 197.485714h270.628572v87.771429h-270.628572z" fill="#0C92F2" /><path d="M292.571429 555.885714h526.628571v219.428572h-526.628571z" fill="#A8C8E6" /><path d="M292.571429 555.885714l263.314285 219.428572h-263.314285z" fill="#61B6F2" /><path d="M555.885714 555.885714h263.314286v219.428572z" fill="#FC830A" /></svg>
+                    </div>
+                    
+                    <div>
+                      <p
+                        class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200"
+                      ><a href="{% url 'viewpostdetails' post.id %}" style="text-decoration: underline;">
+                        {{ post.title }}
+                      </a>
+                      </p>
+                      <p
+                      class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+                    >
+                    Description : 
+                      {{ post.description }}
+                    </p>
+                    <p
+                    class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+                  >
+                  Skills Required : 
+                    {{ post.skills }}
+                  </p>
+                  <p
+                    class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+                  >
+                  Amount or Stipend : 
+                    {{ post.investment_needed }}
+                  </p>
+                  <p
+                    class="mb-2 text-lg font-small text-gray-700 dark:text-gray-200"
+                  >
+                  For : 
+                    {{ post.duration }} months
+                  </p>
+                      <p
+                        class="text-md font-medium text-gray-500 dark:text-gray-400"
+                      >
+                        {{ post.createdTime|date:"r"|slice:"0:22" }}, by <a style="text-decoration-line: underline;" href="{% url 'viewProfile' post.creator.id %}">
+                          {% if post.creator == request.user %}
+                          You
+                          {% else %}
+                          {{post.creator}}
+      {% endif %}                  </a>
+                      </p>
+                      <div class="my-6">
+                        <a style="width: 100px;" role="button" 
+                           href="{% url 'sendrequest' post.id %}"
+    
+                          class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                        >Apply<svg  width="16" height="16" fill="currentColor" class="bi bi-send-plus ml-2" viewBox="0 0 16 16"> <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/> <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/> </svg>
+                      </a>
+    
+    
+                      </div>
+                    </div>
+                  </div>
+                
+    
+                  
+                  {% endfor %}
+                
+                 
+              </div>
+              </div>
+              
+            </main>
+          </div>
+        </div>
+        
+      </section>
+    </main><!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="{% static 'vendors/popper/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/anchorjs/anchor.min.js' %}"></script>
+    <script src="{% static 'vendors/is/is.min.js' %}"></script>
+    <script src="{% static 'vendors/fontawesome/all.min.js' %}"></script>
+    <script src="{% static 'vendors/lodash/lodash.min.js' %}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
+    <script src="{% static 'vendors/imagesloaded/imagesloaded.pkgd.js' %}"></script>
+    <script src="{% static 'vendors/gsap/customEase.js' %}"></script>
+    <script src="{% static 'vendors/gsap/scrollToPlugin.js' %}"></script>
+    
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+  </body>
+
+</html>

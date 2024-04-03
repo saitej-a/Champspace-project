@@ -21,7 +21,8 @@ def home(request):
 
         return render(request, 'admin/base123.html',{'posts':post})
     else:
-        return render(request,'landingpage.html')
+        posts=Postings.objects.all().order_by('-createdTime')
+        return render(request,'admin/landingpage.html',{'posts':posts})
 
 def signin(request):
     
@@ -88,12 +89,15 @@ def newpost(request):
         
     return render(request,'admin/postcreation.html')
 def messages(request):
-    chat_people=Chatbox.objects.filter(receiver=request.user) | Chatbox.objects.filter(sender=request.user)
-    unique_people=[]
-    for i in chat_people:
-        if  not i in unique_people:
-            unique_people.append(i)
-    return render(request,'messages.html',{'chat_people':unique_people})
+    if request.user.is_authenticated:
+        chat_people=Chatbox.objects.filter(receiver=request.user) | Chatbox.objects.filter(sender=request.user)
+        unique_people=[]
+        for i in chat_people:
+            if  not i in unique_people:
+                unique_people.append(i)
+        return render(request,'messages.html',{'chat_people':unique_people})
+    else:
+        return redirect('signin')
 def get_messages(request,pk):
     
     
@@ -145,54 +149,59 @@ def sendMessage(request):
         message.save()
         return HttpResponse("success")
 def sendrequestPost(request,pk):
+    if request.user.is_authenticated:
 
-    post=Postings.objects.get(id=pk)
-    appliedfor=Appliedfor.objects.filter(post=post)
-    if not appliedfor:
-        appliedfor=Appliedfor.objects.create(post=post)
-        appliedfor.applicants.add(request.user)
-        appliedfor.applied=True
-        appliedfor.save()
-        print('if')
-        
-        return redirect('home')
-    else:
-        try:
-            appliedfor=appliedfor.objects.get(post=post)
+        post=Postings.objects.get(id=pk)
+        appliedfor=Appliedfor.objects.filter(post=post)
+        if not appliedfor:
+            appliedfor=Appliedfor.objects.create(post=post)
             appliedfor.applicants.add(request.user)
-            
             appliedfor.applied=True
             appliedfor.save()
-            print('try')
+            
             
             return redirect('home')
-        except Exception:
-            print('exception')
-            appliedfor.applied=True
-            
-            return redirect('home')
+        else:
+            try:
+                appliedfor=appliedfor.objects.get(post=post)
+                appliedfor.applicants.add(request.user)
+                
+                appliedfor.applied=True
+                appliedfor.save()
+                
+                
+                return redirect('home')
+            except Exception:
+                print('exception')
+                appliedfor.applied=True
+                
+                return redirect('home')
+    else:
+        return redirect('signin')
         
         
         
 def sendrequest(request,pk):
     
-    
-    post_creator=CustomUser.objects.get(id=pk)
-    print('before')
-    chatbox=Chatbox.objects.filter(sender=request.user,receiver=post_creator) or Chatbox.objects.filter(sender=post_creator,receiver=request.user)
-    unique=[]
-    for i in chatbox:
-        if  not i in unique:
-            unique.append(i)
-    print('after')
-    print("chatbox",unique)
-    if not unique:
-        print('if')
-        chatbox=Chatbox.objects.create(sender=request.user,receiver=post_creator)
-        return redirect('get_messages',pk=chatbox.id)
+    if request.user.is_authenticated:
+        post_creator=CustomUser.objects.get(id=pk)
+        print('before')
+        chatbox=Chatbox.objects.filter(sender=request.user,receiver=post_creator) or Chatbox.objects.filter(sender=post_creator,receiver=request.user)
+        unique=[]
+        for i in chatbox:
+            if  not i in unique:
+                unique.append(i)
+        print('after')
+        print("chatbox",unique)
+        if not unique:
+            print('if')
+            chatbox=Chatbox.objects.create(sender=request.user,receiver=post_creator)
+            return redirect('get_messages',pk=chatbox.id)
+        else:
+            print('else')
+            return redirect('getpost_message',pk=chatbox[0].id)
     else:
-        print('else')
-        return redirect('getpost_message',pk=chatbox[0].id)
+        return redirect('signin')
     
 def getpost_message(request,pk):
     chat_people=Chatbox.objects.filter(receiver=request.user) | Chatbox.objects.filter(sender=request.user)
@@ -220,7 +229,7 @@ def viewProfile(request,pk):
 
     
     skills=profile.skills
-    skills_range=request.user.skills_range.split(',')
+    skills_range=profile.skills_range.split(',')
     skills=skills.split(',')
     skills=list(zip(skills,skills_range))
     print(skills)
@@ -254,10 +263,15 @@ def editProfile(request):
     
     return render(request,'edituserprofile.html',{'skills':skills,'ownweb':links[0],'second':links[1],'third':links[2],'forth':links[3],'fifth':links[4]})
 def viewpostdetails(request,pk):
-    post=Postings.objects.get(id=pk)
-    skills=post.skills.split(',')
-    apply=Appliedfor.objects.filter(post=post,applied=True)
+    if request.user.is_authenticated:
 
+        post=Postings.objects.get(id=pk)
+        skills=post.skills.split(',')
+        apply=Appliedfor.objects.filter(post=post,applicants=request.user)#applied=True
+    else:
+        post=Postings.objects.get(id=pk)
+        skills=post.skills.split(',')
+        apply=False
     return render(request,'admin/fullpage.html',{'post':post,'skills':skills,"apply":apply})
 def search(request):
     if request.method=='GET':
@@ -274,3 +288,16 @@ def search(request):
         
         
     return render(request,'admin/search.html',{'searched':searched,'to':to})
+def notloginsearch(request):
+    if request.method=='GET':
+
+        to=''
+        q=request.GET['searchtag'] if request.GET['searchtag'] != None else ''
+        if request.GET['dropdown'] == 'User':
+            to='Users'
+            searched=CustomUser.objects.filter(Q(username__icontains=q)|Q(first_name__icontains=q)|Q(last_name__icontains=q)|Q(city__icontains=q)|Q(state__icontains=q)|Q(zip_code__icontains=q)|Q(skills__icontains=q))
+        else:
+            to="Posts"
+            searched=Postings.objects.filter(Q(title__icontains=q)| Q(typeofpost__icontains=q)|Q(location__icontains=q)|Q(company_name__icontains=q)|Q(skills__icontains=q))
+        
+    return render(request,'admin/searchednotlogin.html',{'searched':searched,'to':to})
